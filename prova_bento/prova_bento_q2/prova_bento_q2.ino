@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
-#include <base64.h>
+#include <Base64.h>
 #include "decoder.h"
 
 #define FILE_PATH "D:\github\iot\ps00125\prova_bento\prova_bento_q2/message.txt"
@@ -77,4 +77,15 @@ char* readFile() {
     buffer[length] = '\0';
 
     return buffer;
+}
+
+char* base64(char* encoded_message) {
+  //decodificar
+  size_t input_length = strlen(encoded_message);
+  size_t output_length = Base64.decodedLength(encoded_message, input_length);
+
+  char* decoded_message = (char*)malloc(output_length);
+  Base64decode(decoded_message, encoded_message);
+  retrun decoded_message;
+  
 }
