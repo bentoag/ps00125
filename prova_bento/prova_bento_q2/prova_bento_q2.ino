@@ -86,6 +86,23 @@ char* base64(char* encoded_message) {
 
   char* decoded_message = (char*)malloc(output_length);
   Base64decode(decoded_message, encoded_message);
-  retrun decoded_message;
-  
+  retrun decoded_message;  
+}
+
+char* reverse(char* decoded_message) {
+    //funcao para inverter a string
+    int length = strlen(decoded_message);
+    char* reversed_message = (char*)malloc(length + 1);
+    
+    //escrevendo a mensagem invertida
+    for (int i = 0; i < length; i++) {
+        reversed_message[i] = decoded_message[length - 1];
+    }
+    reversed_message[length] = '';
+   
+    //mensagem for vazia
+    if (reversed_message == NULL) {
+        return NULL;
+    }
+     return reversed_message;
 }
