@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
+#include <base64.h>
 #include "decoder.h"
 
 #define FILE_PATH "D:\github\iot\ps00125\prova_bento\prova_bento_q2/message.txt"
@@ -38,5 +39,42 @@ void loop() {
         return 1;
     }
 
-  
+   // Imprimir a mensagem invertida
+    Serial.print("Mensagem decodificada e invertida: %s\n", reversed_message);
+   
+    // Liberar memória alocada
+    free(encoded_message);
+    free(decoded_message_base64);
+    free(reversed_message);   
+    return 0;
+}
+
+char* readFile() {
+    FILE* file;
+    char* buffer = NULL;
+    long length;
+
+    //abrindo arquivo
+    file = fopen("D:\github\iot\ps00125\prova_bento\prova_bento_q2/message.txt", "rb");
+    if (file == NULL) {
+        return NULL;
+    }
+
+    //leitura
+    fseek(file, 0, SEEK_END);
+    length = ftell(file);
+    fseek(file, 0, SEEK_SET);
+
+    buffer = (char*)malloc(length + 1); //alocacao de memoria
+    if (buffer == NULL) {
+        fclose(file);
+        return NULL;
+    }
+
+    //leitura e fechamento do arquivo
+    fread(buffer, 1, length, file);
+    fclose(file);
+    buffer[length] = '\0';
+
+    return buffer;
 }
